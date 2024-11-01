@@ -3,10 +3,11 @@ from sklearn.preprocessing import normalize
 
 def generate(n, m, p, true_beta_s, true_beta_t):
     """return Xs, Xt, Ys, Yt, Sigma_s, Sigma_t"""
-    Xs = np.random.rand(n, p)
-    Xt = np.random.rand(m, p)
-    
-    # Normalize each feature
+    # Xs = np.random.rand(n, p)
+    # Xt = np.random.rand(m, p)
+    Xs = np.random.normal(loc = 0, scale = 1, size = (n, p))
+    Xt = np.random.normal(loc = 0, scale = 1, size = (m, p))
+    # # Normalize each feature
     Xs = normalize(Xs, axis=0)
     Xt = normalize(Xt, axis=0)
 

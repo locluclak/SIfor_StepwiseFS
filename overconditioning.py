@@ -144,6 +144,6 @@ def OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, 
                                     len(SELECTION_F),
                                     lst_SELECk, lst_P,
                                     GAMMA.dot(a), GAMMA.dot(b))]
-
+    # print(itvDA, itvFS)
     finalinterval = intersection.Intersec(itvDA, itvFS) 
     return finalinterval

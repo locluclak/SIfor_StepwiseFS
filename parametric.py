@@ -83,6 +83,9 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
                                                             basis_var_deltaz, S_, h_, 
                                                             SELECTIONinloop, GAMMAdeltaz)
+
+        # print(f"intervalinloop: {intervalinloop}")
+
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
         if sorted(SELECTIONinloop) != sorted(SELECTION_F):
