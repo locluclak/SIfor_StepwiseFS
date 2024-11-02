@@ -92,5 +92,6 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
             # print(f"FAIL {SELECTIONinloop} -- {SELECTION_F}")
             continue
         # print(SELECTIONinloop)
+        print(z)
         TD = intersection.Union(TD, intervalinloop)
     return TD

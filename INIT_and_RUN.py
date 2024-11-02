@@ -7,7 +7,7 @@ def run(iter = 0):
     print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 100
+    ns = 150
     nt = 10
     p = 5
 
@@ -25,7 +25,7 @@ def run(iter = 0):
     return pvalue
 
 if __name__ == "__main__":
-    for i in range(1):
+    for i in range(5):
         # st = time.time()
         print(run())
         # en = time.time()
