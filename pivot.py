@@ -58,9 +58,9 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
 
     Sigmatilde = GAMMA.T.dot(Sigma.dot(GAMMA))
     # Best model from 1...p models by AIC criterion
-    # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
-    k = 4
-    SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
+    SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
+    # k = 4
+    # SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
     Xt_M = Xt[:, sorted(SELECTION_F)].copy()
 
     # Compute eta
@@ -86,8 +86,8 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     # print(f"etay: {etaTY}")
     # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
 
-    # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
-    finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
+    finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
+    # finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
     # print(f"Final interval: {finalinterval}")
     selective_p_value = compute_p_value(finalinterval, etaTY, etaT_Sigma_eta)
 
