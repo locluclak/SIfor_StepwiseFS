@@ -7,9 +7,9 @@ def run(iter = 0):
     print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 150
+    ns = 50
     nt = 10
-    p = 5
+    p = 7
 
     true_beta_s = np.full((p,1), 2) #source's beta
     true_beta_t = np.full((p,1), 0) #target's beta
@@ -20,12 +20,12 @@ def run(iter = 0):
     # Save pvalue into file
     OCorPARA = 'para'
     filename = f'Experiment/Listpvalue_{OCorPARA}_fixed_{ns}_{p}.txt'
-    with open(filename, 'a') as f:
-        f.write(str(pvalue)+ '\n')
+    # with open(filename, 'a') as f:
+    #     f.write(str(pvalue)+ '\n')
     return pvalue
 
 if __name__ == "__main__":
-    for i in range(5):
+    for i in range(1):
         # st = time.time()
         print(run())
         # en = time.time()

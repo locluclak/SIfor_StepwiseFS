@@ -50,7 +50,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     TD = []
     detectedinter = []
-
+    print(f'M = {SELECTION_F}')
     z =  -20
     zmax = 20
     while z < zmax:
@@ -79,7 +79,7 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
 
         
-        intervalinloop = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_deltaz, 
+        intervalinloop, itvda, itvfs = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_deltaz, 
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
                                                             basis_var_deltaz, S_, h_, 
                                                             SELECTIONinloop, GAMMAdeltaz)
@@ -89,7 +89,7 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
         if sorted(SELECTIONinloop) != sorted(SELECTION_F):
-            # print(f"FAIL {SELECTIONinloop} -- {SELECTION_F}")
+            print(f"M != Mz | {SELECTIONinloop} |fs: {itvfs}")
             continue
         # print(SELECTIONinloop)
         print(z)

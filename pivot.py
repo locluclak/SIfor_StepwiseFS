@@ -59,7 +59,8 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     Sigmatilde = GAMMA.T.dot(Sigma.dot(GAMMA))
     # Best model from 1...p models by AIC criterion
     # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
-    SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, 3)[0]
+    k = 4
+    SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
     Xt_M = Xt[:, sorted(SELECTION_F)].copy()
 
     # Compute eta
