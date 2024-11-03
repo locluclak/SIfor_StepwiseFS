@@ -30,7 +30,7 @@ def solve_quadratic_inequality(a, b, c):
     if a == 0:
         # print(f"b: {b}")
         if b > 0:
-            return [(-np.inf, -c / b)]
+            return [(-np.inf, np.around(-c / b, 10))]
         elif b == 0:
             # print(f"c: {c}")
             if c >= 0:
@@ -39,7 +39,7 @@ def solve_quadratic_inequality(a, b, c):
                 print('Error bx + c')
                 return 
         else:
-            return [(-c / b, np.inf)]
+            return [(np.around(-c / b, 10), np.inf)]
     delta = b*b - 4*a*c
     if delta < 0:
         if a < 0:
@@ -52,6 +52,8 @@ def solve_quadratic_inequality(a, b, c):
     x2 = (- b + np.sqrt(delta)) / (2.0*a)
     # if x1 > x2:
     #     x1, x2 = x2, x1  
+    x1 = np.around(x1, 10)
+    x2 = np.around(x2, 10)
     if a < 0:
         return [(-np.inf, x2),(x1, np.inf)]
     return [(x1,x2)]

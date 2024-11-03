@@ -92,7 +92,7 @@ def interval_SFS(X, Y, K, lst_SELEC_k, lst_Portho, a, b):
                 Vplus = min(Vplus, temp)
             else:
                 Vminus = max(Vminus, temp)
-    return Vminus, Vplus
+    return np.around(Vminus, 10), np.around(Vplus, 10)
 
 
 def interval_AIC(X, Y, Portho, K, a, b, Sigma):
