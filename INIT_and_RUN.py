@@ -2,14 +2,14 @@ import pivot
 import numpy as np
 def run(iter = 0):    
     seed = int(np.random.rand() * (2**32 - 1))
-    # seed = 3026632636
+    seed = 1700741911
     np.random.seed(seed)
     print("Seed:",seed)
 
     #___________________________________________________________
     ns = 50
     nt = 10
-    p = 5
+    p = 7
 
     true_beta_s = np.full((p,1), 2) #source's beta
     true_beta_t = np.full((p,1), 0) #target's beta
@@ -18,10 +18,10 @@ def run(iter = 0):
     pvalue = pivot.pvalue_SI(seed, ns, nt, p, true_beta_s, true_beta_t)
 
     # Save pvalue into file
-    OCorPARA = 'oc'
-    filename = f'Experiment/Listpvalue_{OCorPARA}_AIC_{ns}_{p}.txt'
-    with open(filename, 'a') as f:
-        f.write(str(pvalue)+ '\n')
+    OCorPARA_FIXorAIC = 'oc'
+    filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC}_{ns}_{p}.txt'
+    # with open(filename, 'a') as f:
+    #     f.write(str(pvalue)+ '\n')
     return pvalue
 
 if __name__ == "__main__":

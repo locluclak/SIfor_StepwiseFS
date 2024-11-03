@@ -86,12 +86,14 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
         # print(f"intervalinloop: {intervalinloop}")
 
-        detectedinter = intersection.Union(detectedinter, intervalinloop)
 
         if sorted(SELECTIONinloop) != sorted(SELECTION_F):
+            detectedinter = intersection.Union(detectedinter, itvfs)
             print(f"M != Mz | {SELECTIONinloop} |fs: {itvfs}")
             continue
+        detectedinter = intersection.Union(detectedinter, intervalinloop)
+
         # print(SELECTIONinloop)
-        print(z)
+        print(f"Matched - fs: {itvfs}")
         TD = intersection.Union(TD, intervalinloop)
     return TD
