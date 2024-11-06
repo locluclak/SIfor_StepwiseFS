@@ -3,10 +3,10 @@ import numpy as np
 import OptimalTransport
 import ForwardSelection
 import intersection
+
 def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     TD = []
     detectedinter = []
-
     z =  -20
     zmax = 20
     while z < zmax:
@@ -19,7 +19,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
                 break
         if z > zmax:
             break
-        print(z)
+        # print(z)
         Ydeltaz = a + b*z
 
         XsXt_deltaz = np.concatenate((X, Ydeltaz), axis= 1).copy()
@@ -30,8 +30,8 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
         Sigmatilde_deltaz = GAMMAdeltaz.T.dot(Sigma.dot(GAMMAdeltaz))
         SELECTIONinloop = ForwardSelection.SelectionAIC(Ytildeinloop, Xtildeinloop, Sigmatilde_deltaz)
-        # SELECTIONinloop = FS.fixedSelection(Ytildeinloop, Xtildeinloop, 4)[0]
-        lst_SELECk_deltaz, lst_P_deltaz = ForwardSelection.list_residualvec(Xtildeinloop, Ytildeinloop)
+
+        # lst_SELECk_deltaz, lst_P_deltaz = ForwardSelection.list_residualvec(Xtildeinloop, Ytildeinloop)
 
 
         
@@ -39,13 +39,18 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
                                                             basis_var_deltaz, S_, h_, 
                                                             SELECTIONinloop, GAMMAdeltaz)
+        # print(f"intervalinloop: {intervalinloop}")
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
         if sorted(SELECTIONinloop) != sorted(SELECTION_F):
+            # print(f"M != Mz | {SELECTIONinloop} | fs: {itvfs} | da: {itvda}")
             continue
-        print(SELECTIONinloop)
+
+        # print(SELECTIONinloop)
+        # print(f"Matched - fs: {itvfs} - da: {itvda}")
         TD = intersection.Union(TD, intervalinloop)
     return TD
+
 
 def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     TD = []
