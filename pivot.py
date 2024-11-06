@@ -88,7 +88,7 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
 
     # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
     finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
-    print(f"Final interval: {finalinterval}")
+    # print(f"Final interval: {finalinterval}")
     selective_p_value = compute_p_value(finalinterval, etaTY, etaT_Sigma_eta)
 
 

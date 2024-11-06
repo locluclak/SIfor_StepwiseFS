@@ -17,7 +17,7 @@ def count_floats_less_equal(file_path, threshold=0.05):
                 continue
     return count, ls
 
-file_path = 'Experiment/Listpvalue_oc_AIC_50_5.txt'  
+file_path = 'Experiment/Listpvalue_para_fixed_150_5.txt'  
 result,ls = count_floats_less_equal(file_path)
 print(f"Number of floats less than or equal to 0.05: {result}")
 print("FPR:",result / len(ls))

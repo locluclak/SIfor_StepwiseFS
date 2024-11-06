@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 def main(st = 0):
-    max_iteration = 7000
+    max_iteration = 120
     list_p_value = []
     # ssize = 50
     alpha = 0.05
@@ -20,13 +20,13 @@ def main(st = 0):
         if i <= alpha:
             count += 1
 
-    print('False positive rate:', count / max_iteration)
-    kstest_pvalue = scipy.stats.kstest(list_p_value, 'uniform').pvalue
+    # print('False positive rate:', count / max_iteration)
+    # kstest_pvalue = scipy.stats.kstest(list_p_value, 'uniform').pvalue
     print('Uniform Kstest check:', kstest_pvalue)
     plt.hist(list_p_value)
     # Save the histogram
     plt.savefig('Figure/uniform_hist.png')
-    plt.show()
+    # plt.show()
     return kstest_pvalue
     
     

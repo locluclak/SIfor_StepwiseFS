@@ -50,7 +50,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     TD = []
     detectedinter = []
-    print(f'M = {SELECTION_F}')
+    # print(f'M = {SELECTION_F}')
     z =  -20
     zmax = 20
     while z < zmax:
@@ -74,7 +74,7 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
         Sigmatilde_deltaz = GAMMAdeltaz.T.dot(Sigma.dot(GAMMAdeltaz))
         SELECTIONinloop = ForwardSelection.fixedSelection(Ytildeinloop, Xtildeinloop, len(SELECTION_F))[0]
-        # SELECTIONinloop = FS.fixedSelection(Ytildeinloop, Xtildeinloop, 4)[0]
+
         lst_SELECk_deltaz, lst_P_deltaz = ForwardSelection.list_residualvec(Xtildeinloop, Ytildeinloop)
 
 
@@ -86,14 +86,13 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
         # print(f"intervalinloop: {intervalinloop}")
 
-
-        if sorted(SELECTIONinloop) != sorted(SELECTION_F):
-            detectedinter = intersection.Union(detectedinter, itvfs)
-            print(f"M != Mz | {SELECTIONinloop} |fs: {itvfs}")
-            continue
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
+        if sorted(SELECTIONinloop) != sorted(SELECTION_F):
+            # print(f"M != Mz | {SELECTIONinloop} | fs: {itvfs} | da: {itvda}")
+            continue
+
         # print(SELECTIONinloop)
-        print(f"Matched - fs: {itvfs}")
+        # print(f"Matched - fs: {itvfs} - da: {itvda}")
         TD = intersection.Union(TD, intervalinloop)
     return TD
