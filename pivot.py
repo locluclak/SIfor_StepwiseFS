@@ -123,7 +123,7 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     # Bunch of Ys & Yt
     Y = np.concatenate((Ys, Yt), axis= 0)
 
-    Sigma = np.identity(ns + nt) 
+    Sigma = block_diag(Sigma_s, Sigma_t)
 
     h = np.concatenate((np.ones((ns, 1))/ns, np.ones((nt,1))/nt), axis = 0) 
     S = OptimalTransport.convert(ns,nt)
