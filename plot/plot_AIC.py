@@ -1,36 +1,55 @@
+
 import matplotlib.pyplot as plt
 
-# Sample data for demonstration; replace with your actual data
-sample_sizes = [50, 100, 150, 200]
+def plotAICFPR():
+    # Sample data for demonstration; replace with your actual data
+    sample_sizes = [50, 100, 150, 200]
 
-no_inf = [1.0, 1.0, 1.0, 1.0]
-naiveAIC = [0.141666666666, 0.10833333333334, 0.10833333333334, 0.0833333333]
-bonferroni = [0.008333333, 0.016666666666, 0.0, 0.008333333]
-ocAIC = [0.04166667, 0.033333333, 0.0583333333, 0.0416666666]
-# parafixedk = [0.0667, 0.05, 0.075, 0]
+    no_inf = [1.0, 1.0, 1.0, 1.0]
+    naive = [0.141666666666, 0.10833333333334, 0.10833333333334, 0.0833333333]
+    bonferroni = [0.0, 0.0, 0.0, 0.008333333]
+    ds = [0.0588235294117, 0.075, 0.05833333333, 0.058333333333333]
+    oc = [0.04166667, 0.033333333, 0.0583333333, 0.0416666666]
+    # para = []
 
-# Plot each series with different colors and markers
-plt.plot(sample_sizes, no_inf, label='No inference', marker='o', color='magenta')
-plt.plot(sample_sizes, bonferroni, label='Bonferroni', marker='o', color='cyan')
-plt.plot(sample_sizes, naiveAIC, label='Naive', marker='o', color='red')
-plt.plot(sample_sizes, ocAIC, label='oc-AIC', marker='o', color='green')
-# plt.plot(sample_sizes, parafixedk, label='para-fixedK', marker='o', color='blue')
+    plt.plot(sample_sizes, no_inf, label='No inference', marker='o', color='olive')
+    plt.plot(sample_sizes, naive, label='Naive', marker='o', color='cyan')
+    plt.plot(sample_sizes, bonferroni, label='Bonferroni', marker='o', color='purple')
+    plt.plot(sample_sizes, ds, label='Data splitting', marker='o', color='red')
+    plt.plot(sample_sizes, oc, label='oc-fixedK', marker='o', color='green')
+    # plt.plot(sample_sizes, para, label='para-fixedK', marker='o', color='blue')
 
-# true_beta_t = [0.5, 1.0, 1.5, 2.0]
-# naiveAIC = [0.141666666666, 0.10833333333334, 0.10833333333334, 0.0833333333]
-# ocAIC = [0.0583333333, 0.04166666, 0.06666666667, 0.075]
-# parafixedk = [0, 0, 0, 0]
+    plt.xlabel('Sample size')
+    plt.ylabel('FPR')
+    plt.ylim(-0.05, 1.1)
+    plt.xticks(sample_sizes)
+    plt.legend()
+    plt.savefig('plot/FPR_AIC.pdf', format = 'pdf')
+    plt.show()
+def plotAICTPR():
+    true_beta_t = [0.5, 1.0, 1.5, 2.0]
+
+    bonferroni = [0.008333333333333, 0.03361344537815126, 0.05833333333333, 0.06666666666667]
+    ds = [0.041666666667, 0.03333333333, 0.15, 0.125]
+    oc = [0.0416666667, 0.05, 0.05833333, 0.0666666667]
+    para = []
+
+    # Plot each series with different colors and markers
+    plt.plot(true_beta_t, bonferroni, label='Bonferroni', marker='o', color='purple')
+    plt.plot(true_beta_t, ds, label='Data splitting', marker='o', color='red')
+    plt.plot(true_beta_t, oc, label='oc-AIC', marker='o', color='green')
+    # plt.plot(true_beta_t, parafixedk, label='para-AIC', marker='o', color='blue')
 
 
-# Label the axes
-plt.xlabel('Sample size')
-plt.ylabel('FPR')
+    plt.xlabel('True beta')
+    plt.ylabel('TPR')
 
-# Set y-axis limit
-plt.ylim(0, 1.1)
-plt.xticks(sample_sizes)
-# Add legend
-plt.legend()
-plt.savefig('plot/FPR_AIC.pdf', format = 'pdf')
-# Display the plot
-plt.show()
+    plt.ylim(-0.05, 1.1)
+    plt.xticks(true_beta_t)
+    plt.legend()
+    plt.savefig('plot/TPR_AIC.pdf', format = 'pdf')
+    plt.show()
+
+if __name__ == "__main__":
+    plotAICFPR()
+    plotAICTPR()
