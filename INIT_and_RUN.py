@@ -7,7 +7,7 @@ def run(iter = 0):
     # print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 200
+    ns = 50
     nt = 10
     p = 5
     betat = 0
@@ -18,7 +18,7 @@ def run(iter = 0):
     pvalue = pivot.pvalue_SI(seed, ns, nt, p, true_beta_s, true_beta_t)
 
     # Save pvalue into file
-    OCorPARA_FIXorAIC_FPRorTPR = 'para_fixed'
+    OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC'
     filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
     # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
     with open(filename, 'a') as f:
