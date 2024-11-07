@@ -1,5 +1,6 @@
 import scipy 
 import matplotlib.pyplot as plt
+from math import comb
 
 def count_floats_less_equal(file_path, threshold=0.05):
     count = 0
@@ -17,15 +18,22 @@ def count_floats_less_equal(file_path, threshold=0.05):
                 continue
     return count, ls
 
-file_path = 'Experiment/Listpvalue_naive_AIC_FPR_200_5.txt'  
-result,ls = count_floats_less_equal(file_path)
-print(file_path)
-print(f"Number of floats less than or equal to 0.05: {result}")
-print("FPR:",result / len(ls))
-print(f"Quantity: {len(ls)}")
-kstest_pvalue = scipy.stats.kstest(ls, 'uniform').pvalue
-print('Uniform Kstest check:', kstest_pvalue)
-plt.hist(ls)
-# Save the histogram
-plt.savefig('uniform_hist.png')
-# plt.show()
+if __name__ == "__main__":
+
+    alpha = 0.05 #/ (5*2**4)#(3*comb(5,3))
+    file_path = 'Experiment/Listpvalue_DS_AIC_TPR_100_5_2.0.txt'  
+    result,ls = count_floats_less_equal(file_path, threshold=alpha)
+    
+    print(file_path)
+    print(f"Number of floats less than or equal to 0.05: {result}")
+    print("FPR:",result / len(ls))
+    print(f"Quantity: {len(ls)}")
+    
+    kstest_pvalue = scipy.stats.kstest(ls, 'uniform').pvalue
+    print('Uniform Kstest check:', kstest_pvalue)
+    
+    
+    # plt.hist(ls)
+    # Save the histogram
+    # plt.savefig('uniform_hist.png')
+    # plt.show()
