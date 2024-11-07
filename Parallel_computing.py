@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 def main(st = 0):
-    max_iteration = 120
+    max_iteration = 8
     list_p_value = []
     # ssize = 50
     alpha = 0.05
@@ -13,7 +13,7 @@ def main(st = 0):
     #print("core available: ", mpr.cpu_count())
     iter = range(max_iteration)
 
-    with mpr.Pool(initializer = np.random.seed) as pool:
+    with mpr.Pool(processes= 8,initializer = np.random.seed) as pool:
         list_p_value = pool.map(INIT_and_RUN.run, iter)
 
     for i in list_p_value:
