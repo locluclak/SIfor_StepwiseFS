@@ -21,7 +21,7 @@ class Obj:
             print(f"{self.value})", end=" ")
 
 
-def solve_quadratic_inequality(a, b, c):
+def solve_quadratic_inequality(a, b, c,seed = 0):
     """ ax^2 + bx +c <= 0 """
     if abs(a) < 1e-15:
         a = 0
@@ -30,16 +30,17 @@ def solve_quadratic_inequality(a, b, c):
     if a == 0:
         # print(f"b: {b}")
         if b > 0:
-            return [(-np.inf, np.around(-c / b, 10))]
+            return [(-np.inf, -c / b)]
+            # return [(-np.inf, np.around(-c / b, 10))]
         elif b == 0:
             # print(f"c: {c}")
-            if c >= 0:
+            if c <= 0:
                 return [(-np.inf, np.inf)]
             else:
-                print('Error bx + c')
+                print('Error bx + c', seed)
                 return 
         else:
-            return [(np.around(-c / b, 10), np.inf)]
+            return [(-c / b, np.inf)]
     delta = b*b - 4*a*c
     if delta < 0:
         if a < 0:
@@ -52,8 +53,8 @@ def solve_quadratic_inequality(a, b, c):
     x2 = (- b + np.sqrt(delta)) / (2.0*a)
     # if x1 > x2:
     #     x1, x2 = x2, x1  
-    x1 = np.around(x1, 10)
-    x2 = np.around(x2, 10)
+    # x1 = np.around(x1, 10)
+    # x2 = np.around(x2, 10)
     if a < 0:
         return [(-np.inf, x2),(x1, np.inf)]
     return [(x1,x2)]
@@ -159,6 +160,10 @@ def Intersec(a: list, b: list) -> list:
             stack.append(obj)
         else:
             if len(stack) == 0:
+                if obj.id == 0:
+                    on0 = False 
+                if obj.id == 1:
+                    on1 = False
                 continue
             temp = stack.pop()
             if on0 and on1:
@@ -194,4 +199,10 @@ def Union(a: list, b: list) -> list:
     return finalinterval
 
 if __name__ == "__main__":
-    pass
+    da = [(-0.4122605383393618, -0.3804600576589586)] 
+    fs = [(-0.47042270208769704, -0.3817176404989392)] 
+    aic= [(-1.5756484596917149, -0.407189815328346), (1.0623004540292729, 9.392823837961563)]
+# intervalinloop: [(-0.4122605383393618, -0.407189815328346), (1.0623004540292729, 9.392823837961563)]
+    dafs = Intersec(da, fs)
+    dafsaic = Intersec(dafs, aic)
+    print(dafsaic)

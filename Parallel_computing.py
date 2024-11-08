@@ -13,7 +13,7 @@ def main(st = 0):
     #print("core available: ", mpr.cpu_count())
     iter = range(max_iteration)
 
-    with mpr.Pool(processes= 16,initializer = np.random.seed) as pool:
+    with mpr.Pool(processes = 16,initializer = np.random.seed) as pool:
         list_p_value = pool.map(INIT_and_RUN.run, iter)
 
     for i in list_p_value:

@@ -2,8 +2,8 @@ import pivot
 import numpy as np
 def run(iter = 0):    
     seed = int(np.random.rand() * (2**32 - 1))
-    # seed = 487771846 
-    np.random.seed(seed)
+    # seed = 1832740731 
+
     # print("Seed:",seed)
 
     #___________________________________________________________

@@ -4,7 +4,7 @@ import OptimalTransport
 import ForwardSelection
 import intersection
 
-def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
+def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
     TD = []
     detectedinter = []
     z =  -20
@@ -30,15 +30,11 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
 
         Sigmatilde_deltaz = GAMMAdeltaz.T.dot(Sigma.dot(GAMMAdeltaz))
         SELECTIONinloop = ForwardSelection.SelectionAIC(Ytildeinloop, Xtildeinloop, Sigmatilde_deltaz)
-
-        # lst_SELECk_deltaz, lst_P_deltaz = ForwardSelection.list_residualvec(Xtildeinloop, Ytildeinloop)
-
-
         
         intervalinloop = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_deltaz, 
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
                                                             basis_var_deltaz, S_, h_, 
-                                                            SELECTIONinloop, GAMMAdeltaz)
+                                                            SELECTIONinloop, GAMMAdeltaz,seed)
         # print(f"intervalinloop: {intervalinloop}")
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 

@@ -18,7 +18,8 @@ def compute_p_value(intervals, etaT_Y, etaT_Sigma_eta):
         if leftside <= etaT_Y <= rightside:
             numerator = denominator + mp.ncdf(etaT_Y / np.sqrt(etaT_Sigma_eta)) - mp.ncdf(leftside / np.sqrt(etaT_Sigma_eta))
         denominator += mp.ncdf(rightside / np.sqrt(etaT_Sigma_eta)) - mp.ncdf(leftside / np.sqrt(etaT_Sigma_eta))
-
+    if numerator is None:
+        return 999
     cdf = float(numerator / denominator)
     # print(cdf)
     # compute two-sided selective p_value
@@ -90,10 +91,6 @@ def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT):
     # Test statistic
     etaTY = np.dot(eta.T, Yt_test).item()
     # print(f"etay: {etaTY}")
-    # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)[0]
-    # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
-    # finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
-    # finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
     # print(f"Final interval: {finalinterval}")
 
     # Naive
@@ -168,13 +165,15 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)[0]
     # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
     # finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
-    finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
+    finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed)
     # print(f"Final interval: {finalinterval}")
 
     # Naive
     # finalinterval = [(-np.inf, np.inf)]
     
     selective_p_value = compute_p_value(finalinterval, etaTY, etaT_Sigma_eta)
-
+    if selective_p_value == 999:
+        print('wrong! ',seed)
+        return
 
     return selective_p_value

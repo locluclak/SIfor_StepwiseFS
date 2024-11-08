@@ -92,10 +92,11 @@ def interval_SFS(X, Y, K, lst_SELEC_k, lst_Portho, a, b):
                 Vplus = min(Vplus, temp)
             else:
                 Vminus = max(Vminus, temp)
-    return np.around(Vminus, 10), np.around(Vplus, 10)
+    return Vminus, Vplus
+    # return np.around(Vminus, 10), np.around(Vplus, 10)
 
 
-def interval_AIC(X, Y, Portho, K, a, b, Sigma):
+def interval_AIC(X, Y, Portho, K, a, b, Sigma, seed = 0):
     n_sample, n_fea = X.shape
 
     A = []
@@ -114,12 +115,12 @@ def interval_AIC(X, Y, Portho, K, a, b, Sigma):
 
             g1, g2, g3 = g1.item(), g2.item(), g3.item()
 
-            itv = intersection.solve_quadratic_inequality(g3, g2, g1)
+            itv = intersection.solve_quadratic_inequality(g3, g2, g1, seed)
 
             intervals = intersection.Intersec(intervals, itv)
     return intervals 
 
-def OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_, SELECTION_F, GAMMA):
+def OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_, SELECTION_F, GAMMA,seed = 0):
 
     lst_SELECk, lst_P = ForwardSelection.list_residualvec(Xtilde, Ytilde)
 
@@ -130,10 +131,11 @@ def OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_, 
                                     GAMMA.dot(a), GAMMA.dot(b))]
     itvAIC = interval_AIC(Xtilde, Ytilde, 
                                         lst_P, len(SELECTION_F), 
-                                        GAMMA.dot(a), GAMMA.dot(b), Sigmatilde)
+                                        GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
 
-    finalinterval = intersection.Intersec(itvFS, itvAIC) 
-    finalinterval = intersection.Intersec(finalinterval, itvDA)
+    finalinterval = intersection.Intersec(itvDA, itvFS) 
+    finalinterval = intersection.Intersec(finalinterval, itvAIC)
+    # print(f"da: {itvDA} | fs: {itvFS} | aic: {itvAIC}")
     return finalinterval
 def OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_, SELECTION_F, GAMMA,):
 
