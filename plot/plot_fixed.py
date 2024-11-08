@@ -9,7 +9,7 @@ def plotfixedFPR():
     bonferroni = [0.005555555555555334, 0.005555555555555334, 0.0, 0.0027777777776666662]
     ds = [0.04201680672, 0.0583333333333, 0.025, 0.041666666666]
     ocfixedk = [0.05834, 0.066667, 0.041666667, 0.058333333333333334]
-    parafixedk = [0.0667, 0.05, 0.075, 0]
+    parafixedk = [0.0667, 0.05, 0.075, 0.0583333333]
 
     plt.plot(sample_sizes, no_inf, label='No inference', marker='o', color='olive')
     plt.plot(sample_sizes, naivefixedk, label='Naive', marker='o', color='cyan')
