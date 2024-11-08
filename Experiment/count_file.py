@@ -21,7 +21,7 @@ def count_floats_less_equal(file_path, threshold=0.05):
 if __name__ == "__main__":
 
     alpha = 0.05 #/ (5*2**4)#(3*comb(5,3))
-    file_path = 'Experiment/Listpvalue_DS_AIC_TPR_100_5_2.0.txt'  
+    file_path = 'Experiment/Listpvalue_para_AIC_50_5.txt'  
     result,ls = count_floats_less_equal(file_path, threshold=alpha)
     
     print(file_path)
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     print('Uniform Kstest check:', kstest_pvalue)
     
     
-    # plt.hist(ls)
+    plt.hist(ls)
     # Save the histogram
     # plt.savefig('uniform_hist.png')
-    # plt.show()
+    plt.show()
