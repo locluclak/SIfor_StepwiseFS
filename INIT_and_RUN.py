@@ -2,7 +2,7 @@ import pivot
 import numpy as np
 def run(iter = 0):    
     seed = int(np.random.rand() * (2**32 - 1))
-    # seed = 1832740731 
+    # seed = 2453665195   
 
     # print("Seed:",seed)
 
@@ -18,7 +18,7 @@ def run(iter = 0):
     pvalue = pivot.pvalue_SI(seed, ns, nt, p, true_beta_s, true_beta_t)
 
     # Save pvalue into file
-    OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC'
+    OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC_FPR'
     filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
     # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
     with open(filename, 'a') as f:

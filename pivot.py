@@ -174,6 +174,7 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     selective_p_value = compute_p_value(finalinterval, etaTY, etaT_Sigma_eta)
     if selective_p_value == 999:
         print('wrong! ',seed)
+        exit()
         return
 
     return selective_p_value

@@ -10,11 +10,11 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
     z =  -20
     zmax = 20
     while z < zmax:
-        z += 0.001
+        z += 0.0001
 
         for i in range(len(detectedinter)):
             if detectedinter[i][0] <= z <= detectedinter[i][1]:
-                z = detectedinter[i][1] + 0.001
+                z = detectedinter[i][1] + 0.0001
                 detectedinter = detectedinter[i:]
                 break
         if z > zmax:
@@ -55,11 +55,11 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     z =  -20
     zmax = 20
     while z < zmax:
-        z += 0.001
+        z += 0.0001
 
         for i in range(len(detectedinter)):
             if detectedinter[i][0] <= z <= detectedinter[i][1]:
-                z = detectedinter[i][1] + 0.001
+                z = detectedinter[i][1] + 0.0001
                 detectedinter = detectedinter[i:]
                 break
         if z > zmax:
