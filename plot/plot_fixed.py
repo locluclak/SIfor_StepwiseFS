@@ -28,16 +28,16 @@ def plotfixedFPR():
 def plotfixedTPR():
     true_beta_t = [0.5, 1.0, 1.5, 2.0]
 
-    bonferroni = [0.01666666666666, 0.03333333333, 0.075, 0.2]
-    ds = [0.05, 0.1, 0.15, 0.316667]
+    bonferroni = [0.01666666666666, 0.03333333333, 0.075, 0.193277310924]
+    ds = [0.06666666666666667, 0.11666666666666667, 0.21666666666666667, 0.225]
     ocfixedk = [0.0583333333, 0.04166666, 0.06666666667, 0.075]
-    parafixedk = [0.0667, 0.05, 0.075, 0]
+    parafixedk = [0.0583333333 ,0.14166667 ,0.2 ,0.2583333333333]
 
     # Plot each series with different colors and markers
     plt.plot(true_beta_t, bonferroni, label='Bonferroni', marker='o', color='purple')
     plt.plot(true_beta_t, ds, label='Data splitting', marker='o', color='red')
     plt.plot(true_beta_t, ocfixedk, label='oc-fixedK', marker='o', color='green')
-    # plt.plot(true_beta_t, parafixedk, label='para-fixedK', marker='o', color='blue')
+    plt.plot(true_beta_t, parafixedk, label='para-fixedK', marker='o', color='blue')
 
 
     plt.xlabel('True beta')
