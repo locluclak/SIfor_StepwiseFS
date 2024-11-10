@@ -20,8 +20,8 @@ def count_floats_less_equal(file_path, threshold=0.05):
 
 if __name__ == "__main__":
 
-    alpha = 0.05 / (3*comb(5,3)) #/ (5*2**4)
-    file_path = 'Experiment/Listpvalue_naive_fixed_TPR_100_5_2.0.txt'  
+    alpha = 0.05 #/ (3*comb(5,3)) #/ (5*2**4)
+    file_path = 'Experiment/fixedTPR.txt'  
     result,ls = count_floats_less_equal(file_path, threshold=alpha)
     
     print(file_path)
