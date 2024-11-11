@@ -32,6 +32,7 @@ def plotfixedTPR():
     ds = [0.06666666666666667, 0.11666666666666667, 0.21666666666666667, 0.225]
     ocfixedk = [0.0583333333, 0.04166666, 0.06666666667, 0.075]
     parafixedk = [0.0583333333 ,0.14166667 ,0.2 ,0.35833333333333334]
+    # parafixedknonDA = [0.13333333333333333 ,0.275 ,0.5 ,0.7416666666666667]
 
     # Plot each series with different colors and markers
     plt.plot(true_beta_t, bonferroni, label='Bonferroni', marker='o', color='purple')
