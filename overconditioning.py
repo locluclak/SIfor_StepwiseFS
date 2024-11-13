@@ -149,3 +149,15 @@ def OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, 
     # print(itvDA, itvFS)
     finalinterval = intersection.Intersec(itvDA, itvFS) 
     return finalinterval, itvDA, itvFS
+
+
+def OC_FS_AIC_nonDA(n,a,b,X,Y,Sigma,SELECTION_F):
+    lst_SELECk, lst_P = ForwardSelection.list_residualvec(X, Y)
+
+    itvFS = [interval_SFS(X, Y, len(SELECTION_F), lst_SELECk, lst_P, a, b)]
+    itvAIC = interval_AIC(X, Y, lst_P, len(SELECTION_F), a, b, Sigma)
+
+    # finalinterval = intersection.Intersec(itvDA, itvFS) 
+    finalinterval = intersection.Intersec(itvFS, itvAIC)
+    # print(f"fs: {itvFS} | aic: {itvAIC}")
+    return finalinterval

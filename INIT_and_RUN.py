@@ -8,7 +8,7 @@ def run(iter = 0):
     # print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 100
+    ns = 200
     nt = 10
     p = 5
     betat = 0
@@ -24,8 +24,8 @@ def run(iter = 0):
     OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC_TPR'
     # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
     filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
-    with open(filename, 'a') as f:
-        f.write(str(pvalue)+ '\n')
+    # with open(filename, 'a') as f:
+    #     f.write(str(pvalue)+ '\n')
     return pvalue
 
 if __name__ == "__main__":

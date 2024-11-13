@@ -34,9 +34,9 @@ def pvalue_SI(seed, n, p, true_betaT):
     # print(X)
     # print(Y)
     # Best model from 1...p models by AIC criterion
-    # SELECTION_F = FS.SelectionAIC(Y, X, Sigma)
+    SELECTION_F = FS.SelectionAIC(Y, X, Sigma)
     k = 3
-    SELECTION_F = FS.fixedSelection(Y, X, k)[0]
+    # SELECTION_F = FS.fixedSelection(Y, X, k)[0]
     X_M = X[:, sorted(SELECTION_F)].copy()
 
     # Compute eta
@@ -58,8 +58,8 @@ def pvalue_SI(seed, n, p, true_betaT):
     etaTY = np.dot(eta.T, Y).item()
     # print(f"etay: {etaTY}")
     # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)[0]
-    # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
-    finalinterval = parametric.para_FSwithfixedK(n, a, b, X, Sigma, SELECTION_F)
+    finalinterval = overconditioning.OC_FS_AIC_nonDA(n, a, b, X, Y, Sigma, SELECTION_F)
+    # finalinterval = parametric.para_FSwithfixedK(n, a, b, X, Sigma, SELECTION_F)
     # finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed)
     # print(f"Final interval: {finalinterval}")
 
