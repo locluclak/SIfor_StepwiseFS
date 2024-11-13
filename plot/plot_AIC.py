@@ -32,13 +32,13 @@ def plotAICTPR():
     bonferroni = [0.008333333333333, 0.03361344537815126, 0.05833333333333, 0.06666666666667]
     ds = [0.041666666667, 0.0916666666, 0.125, 0.158333333333]
     oc = [0.0416666667, 0.05, 0.05833333, 0.0666666667]
-    para = [0,0,0,0.2]
+    para = [0.08333333333333333, 0.091666666666666, 0.2083333333333333, 0.2]
 
     # Plot each series with different colors and markers
     plt.plot(true_beta_t, bonferroni, label='Bonferroni', marker='o', color='purple')
     plt.plot(true_beta_t, ds, label='Data splitting', marker='o', color='red')
     plt.plot(true_beta_t, oc, label='oc-AIC', marker='o', color='green')
-    plt.plot(true_beta_t[-1], para[-1], label='para-AIC', marker='o', color='blue')
+    plt.plot(true_beta_t, para, label='para-AIC', marker='o', color='blue')
 
 
     plt.xlabel('True beta')

@@ -49,9 +49,9 @@ def interval_SFS(X, Y, K, lst_SELEC_k, lst_Portho, a, b):
         
         projk = sign_projk*(np.dot(Xjk.T, P_pp_Mk_1)) / np.linalg.norm(P_pp_Mk_1.dot(Xjk))
 
-        if step == 1:
-            A.append(-1*projk[0].copy())
-            B.append(0)
+        # if step == 1:
+        A.append(-1*projk[0].copy())
+        B.append(0)
         for otherfea in range(n_fea):
             if otherfea not in lst_SELEC_k[step]:
 
