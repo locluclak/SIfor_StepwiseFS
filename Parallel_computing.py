@@ -4,11 +4,13 @@ import scipy
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from math import comb
+
 def main(st = 0):
-    max_iteration = 30000
+    max_iteration = 120
     list_p_value = []
     # ssize = 50
-    alpha = 0.05
+    alpha = 0.05 / (5*2**4) #/ (3*comb(5,3)) 
     count = 0
     #print("core available: ", mpr.cpu_count())
     iter = range(max_iteration)

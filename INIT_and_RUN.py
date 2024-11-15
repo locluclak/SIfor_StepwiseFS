@@ -8,10 +8,10 @@ def run(iter = 0):
     # print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 200
+    ns = 100
     nt = 10
     p = 5
-    betat = 0
+    betat = 4.0
     true_beta_s = np.full((p,1), 2) #source's beta
     true_beta_t = np.full((p,1), betat) #target's beta
     #___________________________________________________________
@@ -21,7 +21,7 @@ def run(iter = 0):
     # pvalue = pivot_nonDA.pvalue_SI(seed, ns, p, true_beta_t)
 
     # Save pvalue into file
-    OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC_TPR'
+    OCorPARA_FIXorAIC_FPRorTPR = 'para_fixed_TPR'
     # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
     filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
     # with open(filename, 'a') as f:
