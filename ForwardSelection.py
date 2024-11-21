@@ -1,6 +1,29 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
+def SelectionBIC(Y,X,Sigma):
+    BIC = np.inf
+    n, p = X.shape
+    
+    for i in range(1, p+1):
+        sset, rsdv = fixedSelection(Y, X, i)
+        bic = rsdv.T.dot(Sigma.dot(rsdv)) + i*np.log(n)
+        if bic < BIC:
+            bset = sset
+            BIC = bic
+    return bset
+
+def SelectionAdjR2(Y,X):
+    lRSS = np.inf
+    n, p = X.shape
+    for i in range(1, p+1):
+        sset, rsdv = fixedSelection(Y, X, i)
+        lrss = (n-1)/(n-i-1)*rsdv.T.dot(rsdv)
+        if lrss < lRSS:
+            bset = sset
+            lRSS = lrss
+    return bset
+
 def SelectionAIC(Y,X,Sigma):
     AIC = np.inf
     n, p = X.shape
