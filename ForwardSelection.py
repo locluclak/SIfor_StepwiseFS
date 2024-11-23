@@ -14,16 +14,27 @@ def SelectionBIC(Y,X,Sigma):
     return bset
 
 def SelectionAdjR2(Y,X):
-    lRSS = np.inf
+    # lRSS = np.inf
+    # n, p = X.shape
+    # for i in range(1, p+1):
+    #     sset, rsdv = fixedSelection(Y, X, i)
+    #     lrss = (n-1)/(n-i-1)*rsdv.T.dot(rsdv)
+    #     if lrss < lRSS:
+    #         bset = sset
+    #         lRSS = lrss
+    # return bset
+    AdjR2 = -np.inf
     n, p = X.shape
+    TSS = np.linalg.norm(Y - np.mean(Y))**2
     for i in range(1, p+1):
         sset, rsdv = fixedSelection(Y, X, i)
-        lrss = (n-1)/(n-i-1)*rsdv.T.dot(rsdv)
-        if lrss < lRSS:
-            bset = sset
-            lRSS = lrss
-    return bset
+        RSS = np.linalg.norm(rsdv)**2
 
+        adjr2 = 1 - (RSS/(n-i-1))/(TSS/(n-1))
+        if adjr2 > AdjR2:
+            bset = sset
+            AdjR2 = adjr2
+    return bset
 def SelectionAIC(Y,X,Sigma):
     AIC = np.inf
     n, p = X.shape

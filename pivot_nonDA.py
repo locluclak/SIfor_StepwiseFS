@@ -34,7 +34,7 @@ def pvalue_SI(seed, n, p, true_betaT):
     # print(X)
     # print(Y)
     # Best model from 1...p models by AIC criterion
-    SELECTION_F = FS.SelectionAIC(Y, X, Sigma)
+    SELECTION_F = FS.SelectionAdjR2(Y, X)
     k = 3
     # SELECTION_F = FS.fixedSelection(Y, X, k)[0]
     X_M = X[:, sorted(SELECTION_F)].copy()

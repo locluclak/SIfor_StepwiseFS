@@ -25,7 +25,7 @@ def compute_p_value(intervals, etaT_Y, etaT_Sigma_eta):
     # compute two-sided selective p_value
     return 2 * min(cdf, 1 - cdf)
 
-def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT):
+def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT, k):
     """Return final p_value"""
     np.random.seed(seed)
 
@@ -71,9 +71,11 @@ def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT):
 
     Sigmatilde = GAMMA.T.dot(Sigma.dot(GAMMA))
     # Best model from 1...p models by AIC criterion
-    # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
-    k = 3
-    SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
+    if k == -1:
+        # SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
+        SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
+    else:
+        SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
     
     
     Xt_M = Xt_test[:, sorted(SELECTION_F)].copy()
@@ -101,7 +103,7 @@ def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT):
 
     return selective_p_value
 
-def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
+def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT, k):
     """Return final p_value"""
     np.random.seed(seed)
 
@@ -136,9 +138,13 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
 
     Sigmatilde = GAMMA.T.dot(Sigma.dot(GAMMA))
     # Best model from 1...p models by AIC criterion
-    # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
-    k = 3
-    SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
+    if k == -1:
+        # SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
+        SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
+        # SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
+    else:
+        SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
+    # print(SELECTION_F)
     Xt_M = Xt[:, sorted(SELECTION_F)].copy()
 
     # Compute eta
@@ -162,14 +168,16 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT):
     # Test statistic
     etaTY = np.dot(eta.T, Y).item()
     # print(f"etay: {etaTY}")
-    # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)[0]
-    # finalinterval = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
-    # finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
-    # finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed)
+    if k == -1:
+        finalinterval = parametric.para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed)
+        # finalinterval = overconditioning.OC_Crit_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)
+    else:
+        finalinterval = parametric.para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F)
+        # finalinterval = overconditioning.OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, basis_var, S_, h_, SELECTION_F, GAMMA)[0]
     # print(f"Final interval: {finalinterval}")
 
     # Naive
-    finalinterval = [(-np.inf, np.inf)]
+    # finalinterval = [(-np.inf, np.inf)]
     
     selective_p_value = compute_p_value(finalinterval, etaTY, etaT_Sigma_eta)
     if selective_p_value == 999:

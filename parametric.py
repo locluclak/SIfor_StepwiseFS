@@ -29,7 +29,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
         Ytildeinloop = np.dot(GAMMAdeltaz, Ydeltaz)
 
         Sigmatilde_deltaz = GAMMAdeltaz.T.dot(Sigma.dot(GAMMAdeltaz))
-        SELECTIONinloop = ForwardSelection.SelectionAIC(Ytildeinloop, Xtildeinloop, Sigmatilde_deltaz)
+        SELECTIONinloop = ForwardSelection.SelectionBIC(Ytildeinloop, Xtildeinloop, Sigmatilde_deltaz)
         
         intervalinloop = overconditioning.OC_AIC_interval(ns, nt, a, b, XsXt_deltaz, 
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
