@@ -8,8 +8,8 @@ def generate(n, m, p, true_beta_s, true_beta_t):
     # Xs = np.random.normal(loc = 0, scale = 1, size = (n, p))
     # Xt = np.random.normal(loc = 0, scale = 1, size = (m, p))
     # # Normalize each feature
-    Xs = normalize(Xs, axis=0)
-    Xt = normalize(Xt, axis=0)
+    # Xs = normalize(Xs, axis=0)
+    # Xt = normalize(Xt, axis=0)
 
     mu_s = Xs.dot(true_beta_s)
     mu_t = Xt.dot(true_beta_t)
