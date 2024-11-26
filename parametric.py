@@ -9,6 +9,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
     detectedinter = []
     z =  -20
     zmax = 20
+    countitv=0
     while z < zmax:
         z += 0.0001
 
@@ -37,6 +38,7 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
                                                             Xtildeinloop, Ytildeinloop, Sigmatilde_deltaz, 
                                                             basis_var_deltaz, S_, h_, 
                                                             SELECTIONinloop, GAMMAdeltaz,seed)
+        countitv += 1
         # print(f"intervalinloop: {intervalinloop}")
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
@@ -47,6 +49,9 @@ def para_DA_FSwithAIC(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F,seed = 0):
         # print(SELECTIONinloop)
         # print(f"Matched - fs: {itvfs} - da: {itvda}")
         TD = intersection.Union(TD, intervalinloop)
+    filename = f'Experiment/numberofitv_{ns}.txt'
+    with open(filename, 'a') as f:
+        f.write(str(countitv)+ '\n')
     return TD
 
 
@@ -56,6 +61,7 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
     # print(f'M = {SELECTION_F}')
     z =  -20
     zmax = 20
+    countitv = 0
     while z < zmax:
         z += 0.0001
 
@@ -88,7 +94,7 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
                                                             SELECTIONinloop, GAMMAdeltaz)
 
         # print(f"intervalinloop: {intervalinloop}")
-
+        countitv +=1
         detectedinter = intersection.Union(detectedinter, intervalinloop)
 
         if sorted(SELECTIONinloop) != sorted(SELECTION_F):
@@ -98,6 +104,10 @@ def para_DA_FSwithfixedK(ns, nt, a, b, X, Sigma, S_, h_, SELECTION_F):
         # print(SELECTIONinloop)
         # print(f"Matched - fs: {itvfs} - da: {itvda}")
         TD = intersection.Union(TD, intervalinloop)
+    filename = f'Experiment/fixedk_numberitv_{ns}.txt'
+    with open(filename, 'a') as f:
+        f.write(str(countitv)+ '\n')
+    
     return TD
 
 
