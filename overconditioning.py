@@ -206,12 +206,12 @@ def OC_Crit_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_,
                                     len(SELECTION_F),
                                     lst_SELECk, lst_P,
                                     GAMMA.dot(a), GAMMA.dot(b))
-    # itvCriterion = interval_AIC(Xtilde, Ytilde, 
-    #                                     lst_P, len(SELECTION_F), 
-    #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
-    itvCriterion = interval_BIC(Xtilde, Ytilde, 
-                                        lst_P, len(SELECTION_F),
+    itvCriterion = interval_AIC(Xtilde, Ytilde, 
+                                        lst_P, len(SELECTION_F), 
                                         GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
+    # itvCriterion = interval_BIC(Xtilde, Ytilde, 
+    #                                     lst_P, len(SELECTION_F),
+    #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
     # itvCriterion = interval_AdjustedR2(Xtilde, Ytilde, 
     #                                     lst_P, len(SELECTION_F),
     #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)

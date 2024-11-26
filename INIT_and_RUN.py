@@ -8,7 +8,7 @@ def run(iter = 0):
     # print("Seed:",seed)
 
     #___________________________________________________________
-    ns = 100
+    ns = 70
     nt = 10
     p = 5
     betat = 4
@@ -22,11 +22,11 @@ def run(iter = 0):
     # pvalue = pivot_nonDA.pvalue_SI(seed, ns, p, true_beta_t)
 
     # Save pvalue into file
-    OCorPARA_FIXorAIC_FPRorTPR = 'para_BIC_TPR'
-    filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
-    # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
-    # with open(filename, 'a') as f:
-    #     f.write(str(pvalue)+ '\n')
+    OCorPARA_FIXorAIC_FPRorTPR = 'para_AIC_TPR'
+    # filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}.txt'
+    filename = f'Experiment/Listpvalue_{OCorPARA_FIXorAIC_FPRorTPR}_{ns}_{p}_{betat}.txt'
+    with open(filename, 'a') as f:
+        f.write(str(pvalue)+ '\n')
     return pvalue
 
 if __name__ == "__main__":
