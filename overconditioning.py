@@ -97,8 +97,9 @@ def interval_SFSabs(X, Y, K, lst_SELEC_k, lst_Portho, a, b):
 def interval_SFS(X, Y, K, lst_SELEC_k, lst_Portho, a, b):
     n_sample, n_fea = X.shape
     intervals = [(-np.inf, np.inf)]
-    if K == n_fea:
-        return intervals
+    # if K == n_fea:
+    #     print('y')
+    #     return intervals
     
     I = np.identity(n_sample)  
     for step in range(1, K + 1):
@@ -206,18 +207,18 @@ def OC_Crit_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_,
                                     len(SELECTION_F),
                                     lst_SELECk, lst_P,
                                     GAMMA.dot(a), GAMMA.dot(b))
-    itvCriterion = interval_AIC(Xtilde, Ytilde, 
-                                        lst_P, len(SELECTION_F), 
-                                        GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
+    # itvCriterion = interval_AIC(Xtilde, Ytilde, 
+    #                                     lst_P, len(SELECTION_F), 
+    #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
     # itvCriterion = interval_BIC(Xtilde, Ytilde, 
     #                                     lst_P, len(SELECTION_F),
     #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
-    # itvCriterion = interval_AdjustedR2(Xtilde, Ytilde, 
-    #                                     lst_P, len(SELECTION_F),
-    #                                     GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
+    itvCriterion = interval_AdjustedR2(Xtilde, Ytilde, 
+                                        lst_P, len(SELECTION_F),
+                                        GAMMA.dot(a), GAMMA.dot(b), Sigmatilde, seed)
     finalinterval = intersection.Intersec(itvDA, itvFS) 
     finalinterval = intersection.Intersec(finalinterval, itvCriterion)
-    # print(f"da: {itvDA} | fs: {itvFS} | aic: {itvAIC}")
+    # print(f"da: {itvDA} | fs: {itvFS} | aic: {itvCriterion}")
     return finalinterval
 def OC_fixedFS_interval(ns, nt, a, b, XsXt_, Xtilde, Ytilde, Sigmatilde, B, S_, h_, SELECTION_F, GAMMA,):
 

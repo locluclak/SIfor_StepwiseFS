@@ -1,5 +1,5 @@
 import numpy as np
-from gendata import generate
+from gendata import generate, gen_correlated_data
 import OptimalTransport
 import ForwardSelection as FS
 import overconditioning 
@@ -30,7 +30,7 @@ def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT, k):
     np.random.seed(seed)
 
     # Generate data
-    Xs, Xt, Ys, Yt, Sigma_s, Sigma_t = generate(ns, nt, p, true_betaS, true_betaT)
+    Xs, Xt, Ys, Yt, Sigma_s, Sigma_t = gen_correlated_data(ns, nt, p, true_betaS, true_betaT)
 
     split_index = nt // 2
     Xt_test = Xt[split_index:, :] # test
@@ -72,9 +72,9 @@ def pvalue_DS(seed, ns, nt, p, true_betaS, true_betaT, k):
     Sigmatilde = GAMMA.T.dot(Sigma.dot(GAMMA))
     # Best model from 1...p models by AIC criterion
     if k == -1:
-        SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
+        # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
         # SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
-        # SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
+        SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
     else:
         SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
     
@@ -109,7 +109,7 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT, k):
     np.random.seed(seed)
 
     # Generate data
-    Xs, Xt, Ys, Yt, Sigma_s, Sigma_t = generate(ns, nt, p, true_betaS, true_betaT)
+    Xs, Xt, Ys, Yt, Sigma_s, Sigma_t = gen_correlated_data(ns, nt, p, true_betaS, true_betaT)
 
     #Concatenate data (X, Y)
     Xs_ = np.concatenate((Xs, Ys), axis = 1)
@@ -141,8 +141,8 @@ def pvalue_SI(seed, ns, nt, p, true_betaS, true_betaT, k):
     # Best model from 1...p models by AIC criterion
     if k == -1:
         # SELECTION_F = FS.SelectionAIC(Ytilde, Xtilde, Sigmatilde)
-        SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
-        # SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
+        # SELECTION_F = FS.SelectionBIC(Ytilde, Xtilde, Sigmatilde)
+        SELECTION_F = FS.SelectionAdjR2(Ytilde, Xtilde)
     else:
         SELECTION_F = FS.fixedSelection(Ytilde, Xtilde, k)[0]
     # print(SELECTION_F)
